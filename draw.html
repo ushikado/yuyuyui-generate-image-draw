@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js" integrity="sha512-Ly9uI3QY88jVXCgkORH2A4Qqz5xYm1pew9jEgedgSpyEg9asvyPISK+CY7QNDN3CMftXU/KLNwQR7XUUo7Cqag==" crossorigin="anonymous"></script>
   </head>
   <body>
-    <canvas id="canvas" style="display:block" width="1920" height="1080"></canvas>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
     <img id="finished" style="display:none" width="1920" height="1080">
     <button id="finish">完成</button>
     <script>
@@ -24,11 +24,11 @@
       $("#finish").click(function() {
         fabric.Image.fromURL('foreground.png', function(img) {
           canvas.add(img);
+          var dataURL = canvas.toDataURL('image/jpeg');
+          $("#finished").attr("src", dataURL);
+          $("#finished").css("display", "block");
+          $(".canvas-container:first").css("display", "none");
         });
-        var dataURL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
-        $("#finished").attr("src", dataURL);
-        $("#finished").css("display", "block");
-        $("#canvas").css("display", "none");
       })
     </script>
   </body>
