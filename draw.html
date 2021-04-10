@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Canvas Drawing Fabric Demo</title>
+    <title>ちゅるっと手書きジェネレーター</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js" integrity="sha512-Ly9uI3QY88jVXCgkORH2A4Qqz5xYm1pew9jEgedgSpyEg9asvyPISK+CY7QNDN3CMftXU/KLNwQR7XUUo7Cqag==" crossorigin="anonymous"></script>
     <style type="text/css">
@@ -96,7 +96,7 @@
     <script>
       var isRedoing = false;
       var h = [];
-      var canvas = new fabric.Canvas('canvas', {width:1920, height:1080});
+      var canvas = new fabric.Canvas('canvas', {width:1920/2, height:1080/2});
       canvas.isDrawingMode = true;
       canvas.freeDrawingBrush = new fabric['PencilBrush'](canvas);
       canvas.freeDrawingBrush.color = "white";
@@ -135,7 +135,9 @@
         fabric.Image.fromURL('foreground.png', function(img) {
           canvas.add(img);
           var dataURL = canvas.toDataURL('image/jpeg', 0.5);
-          document.location = dataURL;
+          $("#finished").attr("src", dataURL);
+          $("#finished").css("display", "block");
+          $(".canvas-container:first").css("display", "none");
         });
       }
     </script>
