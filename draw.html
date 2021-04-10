@@ -85,13 +85,14 @@
     </style>
   </head>
   <body>
-    <canvas id="canvas"></canvas>
-    <img id="finished">
-    <div id="vertical-warning">画面は横にしたほうがいいよ。</div>
-    <div id="controls">
-      <button id="undo" onclick="undo()">↩️ 元に戻す</button><button id="redo" onclick="redo()">↪️ やり直し</button><button id="finish" onclick="finish()">完成</button>
+    <div id="root">
+      <canvas id="canvas"></canvas>
+      <img id="finished">
+      <div id="vertical-warning">画面は横にしたほうがいいよ。</div>
+      <div id="controls">
+        <button id="undo" onclick="undo()">↩️ 元に戻す</button><button id="redo" onclick="redo()">↪️ やり直し</button><button id="finish" onclick="finish()">完成</button>
+      </div>
     </div>
-    <button id="fullscreen" onclick="fullscreen()">⤢</button>
     <script>
       var isRedoing = false;
       var h = [];
@@ -114,7 +115,7 @@
         });
         h = [];
       }
-      clear();
+      //clear();
 
       function undo() {
         if(canvas._objects.length>1){
@@ -134,18 +135,8 @@
         fabric.Image.fromURL('foreground.png', function(img) {
           canvas.add(img);
           var dataURL = canvas.toDataURL('image/jpeg', 0.5);
-          $("#finished").attr("src", dataURL);
-          $("#finished").css("display", "block");
-          $(".canvas-container:first").css("display", "none");
+          document.location = dataURL;
         });
-      }
-
-      function fullscreen() {
-        requestFullscreen = document.body.requestFullscreen ||
-                            document.body.msRequestFullscreen ||
-                            document.body.mozRequestFullScreen ||
-                            document.body.webkitRequestFullscreen;
-        requestFullscreen();
       }
     </script>
   </body>
