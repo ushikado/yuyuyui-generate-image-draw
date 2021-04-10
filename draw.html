@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvas Drawing Fabric Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js" integrity="sha512-Ly9uI3QY88jVXCgkORH2A4Qqz5xYm1pew9jEgedgSpyEg9asvyPISK+CY7QNDN3CMftXU/KLNwQR7XUUo7Cqag==" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <canvas id="canvas" style="display:block" width="1920" height="1080"></canvas>
+    <img id="finished" style="display:none" width="1920" height="1080">
+    <button id="finish">完成</button>
+    <script>
+      var canvas = new fabric.Canvas('canvas', {
+        isDrawingMode: true
+      });
+      canvas.freeDrawingBrush = new fabric['PencilBrush'](canvas);
+      canvas.freeDrawingBrush.color = "white";
+      canvas.freeDrawingBrush.width = 6;
+
+      fabric.Image.fromURL('background.png', function(img) {
+        canvas.add(img);
+      });
+
+      $("#finish").on('click', function() {
+        fabric.Image.fromURL('foreground.png', function(img) {
+          canvas.add(img);
+        });
+        var dataURL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
+        $("#finished").attr("src", dataURL);
+      })
+    </script>
+  </body>
+</html>
