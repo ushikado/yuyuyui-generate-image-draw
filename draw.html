@@ -21,12 +21,14 @@
         canvas.add(img);
       });
 
-      $("#finish").on('click', function() {
+      $("#finish").click(function() {
         fabric.Image.fromURL('foreground.png', function(img) {
           canvas.add(img);
         });
         var dataURL = canvas.toDataURL('image/jpeg').replace('image/jpeg', 'image/octet-stream');
         $("#finished").attr("src", dataURL);
+        $("#finished").css("display", "block");
+        $("#canvas").css("display", "none");
       })
     </script>
   </body>
